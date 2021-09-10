@@ -40,7 +40,9 @@
     </div>
     <span id="chargeContainer">
       <span id="chargeBar" style="width: 0%">
-        <span id="ChargedMsg" style="display: none"> CLICK SPACE! </span>
+        <span id="ChargedMsg" style="display: none">
+          CLICK SPACE OR HERE!
+        </span>
       </span>
     </span>
     <span id="ScoreContainer">SCORE:<span id="ScoreOutput">0</span></span>
@@ -117,7 +119,7 @@
   const ChargedMsg = document.getElementById('ChargedMsg');
   const starsRoot = document.getElementById('stars');
 
-  // Screens
+  // Screens + UI
   const UIContainer = document.getElementById('UIContainer');
   const StartScreen = document.getElementById('Start');
   const GameOverScreen = document.getElementById('GameOver');
@@ -130,6 +132,7 @@
   const BackBtn = document.getElementById('BackBtn');
   const GuideBtn = document.getElementById('GuideBtn');
   const GuideScreen = document.getElementById('Guide');
+  const SpaceButton = document.getElementById('chargeContainer');
 
   //Audio
   var boom = new Audio('boom.mp3');
@@ -377,17 +380,21 @@
     if (!dead) requestAnimationFrame(animate);
   }
 
+  function megaBlast() {
+    boom.play();
+    fireBlast();
+    addStar();
+    addStar();
+    addStar();
+    addStar();
+    addStar();
+    addStar();
+    addStar();
+  }
+
   document.body.onkeyup = function (e) {
     if (e.keyCode == 32 && charge === 10) {
-      boom.play();
-      fireBlast();
-      addStar();
-      addStar();
-      addStar();
-      addStar();
-      addStar();
-      addStar();
-      addStar();
+      megaBlast();
     }
   };
 
@@ -437,6 +444,7 @@
     BackBtn.onclick = () => showScreen('start');
     GuideBtn.onclick = () => showScreen('guide');
     ClearScore.onclick = clearScore;
+    SpaceButton.onclick = megaBlast;
   };
 </script>
 
